@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  postgres:
+    container_name: tours_postgres_db
+    image: postgres:15.1
+    environment:
+      POSTGRES_DB: "chat_api"
+      POSTGRES_USER: "chat"
+      POSTGRES_PASSWORD: "simple"
+    ports:
+      - "6000:5432"
