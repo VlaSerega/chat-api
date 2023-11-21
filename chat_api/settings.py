@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'djoser',
     'drf_yasg',
     'django_filters',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +88,8 @@ DATABASES = {
         'PORT': '6000',
     }
 }
+
+AUTH_USER_MODEL = 'api.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
