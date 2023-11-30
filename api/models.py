@@ -41,6 +41,8 @@ class Conversation(models.Model):
         ONE_TO_ONE = 0, 'Личные сообщения'
         GROUP = 1, 'Групповой чат'
 
+    conversation_type = models.PositiveSmallIntegerField('Тип переписки', choices=Type.choices, default=0)
+
 
 class ConversationParticipants(models.Model):
     conversation_id = models.ForeignKey(Conversation, on_delete=models.CASCADE)
