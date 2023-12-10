@@ -20,9 +20,9 @@ from .yasg import urlpatterns as doc
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include('djoser.urls')),
     path('api/v1/', include('djoser.urls.jwt')),
     path('api/v1/', include('api.urls')),
+    path('api/v1/', include('djoser.urls')),
 ]
 
 urlpatterns += doc

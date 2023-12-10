@@ -104,7 +104,8 @@ DJOSER = {
     'SET_PASSWORD_RETYPE': True,
     'TOKEN_MODEL': None,
     'SERIALIZERS': {
-        'current_user': 'api.serializers.UserMeSerializer',
+        'current_user': 'api.users.serializers.UserMeSerializer',
+        "user_create_password_retype": 'api.users.serializers.UserCreatePasswordSimpleRetypeSerializer',
     }
 }
 

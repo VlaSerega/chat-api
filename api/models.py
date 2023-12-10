@@ -35,7 +35,7 @@ class Contacts(models.Model):
 
 
 class Conversation(models.Model):
-    title = models.CharField(verbose_name='Название', max_length=100, null=True, blank=True)
+    title = models.CharField(verbose_name='Название', max_length=100, default='None')
     created_at = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='my_groups')
 
@@ -49,3 +49,12 @@ class Conversation(models.Model):
 class ConversationParticipants(models.Model):
     conversation_id = models.ForeignKey(Conversation, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='participants')
+
+    class Meta:
+        unique_together = ('conversation_id', 'user_id',)
+
+
+class Message(models.Model):
+    text = models.CharField(verbose_name='Текст сообщения', max_length=1000)
+    participant_id = models.ForeignKey(ConversationParticipants, on_delete=models.CASCADE)
+    date = models.DateTimeField(verbose_name='Время', auto_now_add=True)
