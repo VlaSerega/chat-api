@@ -27,11 +27,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Contacts(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='my_contacts')
-    contact_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='in_contacts')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='my_contacts')
+    contact = models.ForeignKey(User, on_delete=models.CASCADE, related_name='in_contacts')
 
     class Meta:
-        unique_together = (('user_id', 'contact_id'),)
+        unique_together = (('user', 'contact'),)
 
 
 class Conversation(models.Model):
@@ -47,14 +47,14 @@ class Conversation(models.Model):
 
 
 class ConversationParticipants(models.Model):
-    conversation_id = models.ForeignKey(Conversation, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='participants')
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name='participants')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('conversation_id', 'user_id',)
+        unique_together = ('conversation', 'user',)
 
 
 class Message(models.Model):
     text = models.CharField(verbose_name='Текст сообщения', max_length=1000)
-    participant_id = models.ForeignKey(ConversationParticipants, on_delete=models.CASCADE)
+    participant = models.ForeignKey(ConversationParticipants, on_delete=models.CASCADE)
     date = models.DateTimeField(verbose_name='Время', auto_now_add=True)

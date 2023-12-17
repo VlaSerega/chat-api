@@ -1,8 +1,8 @@
-from django.urls import re_path
+from rest_framework.routers import DefaultRouter
 
-from api.conversation.views import ConversationView, AddConversationParticipantsView
+from api.conversation.views import ConversationViewSet
 
-urlpatterns = [
-    re_path(r'^conversation/', ConversationView.as_view()),
-    re_path(r'^conversation/participant/add/', AddConversationParticipantsView.as_view())
-]
+router = DefaultRouter()
+router.register("conversation", ConversationViewSet)
+
+urlpatterns = router.urls

@@ -12,7 +12,7 @@ class MyContactsView(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return Contacts.objects.filter(user_id=self.request.user)
+        return Contacts.objects.filter(user=self.request.user)
 
 
 class UserSearchListView(ListAPIView):
