@@ -6,7 +6,7 @@ from api.models import Message
 from api.permissions import IsOwner
 
 
-class ConversationViewSet(viewsets.ModelViewSet):
+class MessageViewSet(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
     queryset = Message.objects.all()
     permission_classes = permissions.IsAuthenticated
