@@ -4,7 +4,7 @@ from api.models import Message, ConversationParticipants
 
 
 class MessageUpdateSerializer(serializers.ModelSerializer):
-    user = serializers.IntegerField(read_only=True)
+    owner = serializers.IntegerField(read_only=True)
     date = serializers.DateTimeField(read_only=True)
 
     class Meta:
