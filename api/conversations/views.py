@@ -1,9 +1,10 @@
 from requests import Response
-from rest_framework import permissions, viewsets, serializers, status
+from rest_framework import permissions, viewsets, status
 from rest_framework.decorators import action
 
-from api.conversation.permissions import IsOwner, IsParticipant
-from api.conversation.serializers import *
+from api.messages.serializers import MessageSerializer
+from api.permissions import IsOwner, IsParticipant
+from api.conversations.serializers import *
 from api.models import Conversation
 
 
@@ -16,28 +17,32 @@ class ConversationViewSet(viewsets.ModelViewSet):
         user = self.request.user
         queryset = super().get_queryset()
         if self.action == "list":
-            queryset = queryset.filter(participants__userF=user.pk)
+            queryset = queryset.filter(participants__user=user.pk)
         return queryset
 
     def get_permissions(self):
-        if self.action == "create" or self.action == "list":
-            self.permission_classes = permissions.IsAuthenticated
-        elif self.action in ["destroy", "update", "partial_update"]:
+        if self.action in ["destroy", "update", "partial_update"]:
             self.permission_classes = IsOwner
         elif self.action == "retrieve":
             self.permission_classes = IsParticipant
         elif self.action == "participants":
             self.permission_classes = IsOwner
+        elif self.action == "messages":
+            self.permission_classes = IsParticipant
 
         return super().get_permissions()
 
     def get_serializer_class(self):
         if self.action == "create":
             return ConversationCreateSerializer
+        elif self.action == 'update' or self.action == 'partial_update':
+            return ConversationModifySerializer
         elif self.action == "destroy":
             return serializers.Serializer  # Nothing to serialize
         elif self.action == 'participants':
             return ConversationParticipantsSerializer
+        elif self.action == "retrieve":
+            self.permission_classes = MessageSerializer
 
         return self.serializer_class
 
@@ -70,3 +75,9 @@ class ConversationViewSet(viewsets.ModelViewSet):
             return self.participants_create(request, *args, **kwargs)
         elif request.method == 'DELETE':
             return self.participants_delete(request, *args, **kwargs)
+
+    @action(methods=['get'], detail=True)
+    def messages(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance.messages)
+        return Response(serializer.data)

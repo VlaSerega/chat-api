@@ -11,6 +11,12 @@ class ConversationListSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'conversation_type')
 
 
+class ConversationModifySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Conversation
+        fields = ('id', 'title', 'owner')
+
+
 class ConversationCreateSerializer(serializers.ModelSerializer):
     participant_id = serializers.IntegerField(write_only=True)
 

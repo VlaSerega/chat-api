@@ -56,5 +56,6 @@ class ConversationParticipants(models.Model):
 
 class Message(models.Model):
     text = models.CharField(verbose_name='Текст сообщения', max_length=1000)
-    participant = models.ForeignKey(ConversationParticipants, on_delete=models.CASCADE)
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name='messages')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(verbose_name='Время', auto_now_add=True)

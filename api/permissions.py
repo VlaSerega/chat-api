@@ -7,6 +7,11 @@ class IsOwner(BasePermission):
         return obj.onwer == request.user
 
 
+class IsMessageOwner(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.onwer == request.user
+
+
 class IsParticipant(BasePermission):
     def has_object_permission(self, request, view, obj):
         return request.user in obj.participants.user
