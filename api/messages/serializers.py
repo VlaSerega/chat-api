@@ -9,17 +9,17 @@ class MessageUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ('id', 'text', 'user', 'date')
+        fields = ('id', 'text', 'owner', 'date')
 
 
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = ('id', 'text', 'user', 'date')
+        fields = ('id', 'text', 'owner', 'date')
 
 
 class MessageCreateSerializer(serializers.ModelSerializer):
-    user = serializers.IntegerField(read_only=True)
+    owner = serializers.IntegerField(read_only=True)
     date = serializers.DateTimeField(read_only=True)
 
     default_error_messages = {
@@ -27,7 +27,7 @@ class MessageCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ('id', 'text', 'user', 'date', 'conversation')
+        fields = ('id', 'text', 'owner', 'date', 'conversation')
 
     def create(self, validated_data):
         user = self.context['user']
