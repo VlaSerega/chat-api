@@ -38,4 +38,4 @@ class MessageCreateSerializer(serializers.ModelSerializer):
         if not ConversationParticipants.objects.filter(user=user, conversation=conversation).exists():
             self.fail('conversation_not_found')
 
-        return Message.objects.create(user=user, **validated_data)
+        return Message.objects.create(owner=user, **validated_data)
