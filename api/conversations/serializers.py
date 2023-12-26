@@ -31,7 +31,7 @@ class ConversationCreateSerializer(serializers.ModelSerializer):
             participant_id = validated_data.pop('participant_id')
             conversation = Conversation.objects.create(owner=user, **validated_data)
             ConversationParticipants.objects.create(conversation=conversation, user=user)
-            ConversationParticipants.objects.create(conversation=conversation, user=participant_id)
+            ConversationParticipants.objects.create(conversation=conversation, user_id=participant_id)
 
         return conversation
 
