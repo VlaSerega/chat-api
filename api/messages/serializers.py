@@ -19,7 +19,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
 
 class MessageCreateSerializer(serializers.ModelSerializer):
-    owner = serializers.IntegerField(read_only=True)
+    owner = serializers.IntegerField(read_only=True, source='owner_id')
     date = serializers.DateTimeField(read_only=True)
 
     default_error_messages = {
@@ -29,7 +29,6 @@ class MessageCreateSerializer(serializers.ModelSerializer):
         model = Message
         fields = ('id', 'text', 'owner', 'date', 'conversation')
         extra_kwargs = {'text': {'required': True}}
-
 
     def create(self, validated_data):
         user = self.context['request'].user
