@@ -78,5 +78,6 @@ class ConversationViewSet(viewsets.ModelViewSet):
     @action(methods=['get'], detail=True)
     def messages(self, request, *args, **kwargs):
         instance = self.get_object()
+        print(instance.messages.all())
         serializer = self.get_serializer(instance.messages)
         return Response(serializer.data)
