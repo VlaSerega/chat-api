@@ -1,4 +1,4 @@
-from requests import Response
+from rest_framework.response import Response
 from rest_framework import permissions, viewsets, status
 from rest_framework.decorators import action
 
@@ -7,7 +7,6 @@ from api.permissions import IsOwner, IsParticipant
 from api.conversations.serializers import *
 from api.models import Conversation
 
-from djoser import conf
 class ConversationViewSet(viewsets.ModelViewSet):
     serializer_class = ConversationListSerializer
     queryset = Conversation.objects.all()
