@@ -32,7 +32,7 @@ class MessageCreateSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
-        user = self.context['user']
+        user = self.context['request'].user
         conversation = validated_data.get('conversation')
 
         if not ConversationParticipants.objects.filter(user=user, conversation=conversation).exists():
