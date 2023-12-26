@@ -14,4 +14,4 @@ class IsMessageOwner(BasePermission):
 
 class IsParticipant(BasePermission):
     def has_object_permission(self, request, view, obj):
-        return request.user in [p.user_id for p in obj.participants]
+        return request.user in [p.user_id for p in obj.participants.all()]
