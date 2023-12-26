@@ -26,10 +26,11 @@ class ConversationCreateSerializer(serializers.ModelSerializer):
         extra_kwargs = {'title': {'required': True}, 'conversation_type': {'required': True}}
 
     def create(self, validated_data):
+        user = self.context['request'].user
         with transaction.atomic():
             participant_id = validated_data.pop('participant_id')
-            conversation = Conversation.objects.create(**validated_data)
-            ConversationParticipants.objects.create(conversation=conversation, user=self.context['request'].user)
+            conversation = Conversation.objects.create(owner=user, **validated_data)
+            ConversationParticipants.objects.create(conversation=conversation, user=user)
             ConversationParticipants.objects.create(conversation=conversation, user=participant_id)
 
         return conversation
