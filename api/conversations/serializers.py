@@ -11,6 +11,12 @@ class ConversationListSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'conversation_type')
 
 
+class ConversationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Conversation
+        fields = '__all__'
+
+
 class ConversationModifySerializer(serializers.ModelSerializer):
     class Meta:
         model = Conversation

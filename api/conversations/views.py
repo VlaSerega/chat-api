@@ -7,6 +7,7 @@ from api.permissions import IsOwner, IsParticipant
 from api.conversations.serializers import *
 from api.models import Conversation
 
+
 class ConversationViewSet(viewsets.ModelViewSet):
     serializer_class = ConversationListSerializer
     queryset = Conversation.objects.all()
@@ -41,6 +42,8 @@ class ConversationViewSet(viewsets.ModelViewSet):
         elif self.action == 'participants':
             return ConversationParticipantsSerializer
         elif self.action == "retrieve":
+            self.permission_classes = ConversationSerializer
+        elif self.action == "messages":
             self.permission_classes = MessageSerializer
 
         return self.serializer_class
