@@ -9,13 +9,13 @@ from api.permissions import IsOwner
 class MessageViewSet(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
     queryset = Message.objects.all()
-    permission_classes = permissions.IsAuthenticated
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_permissions(self):
         if self.action in ["destroy", "update", "partial_update"]:
-            self.permission_classes = IsOwner
+            self.permission_classes = [IsOwner]
         elif self.action == 'list':
-            self.permission_classes = IsAdminUser
+            self.permission_classes = [IsAdminUser]
 
         return super().get_permissions()
 

@@ -7,11 +7,11 @@ from api.permissions import IsOwner, IsParticipant
 from api.conversations.serializers import *
 from api.models import Conversation
 
-
+from djoser import conf
 class ConversationViewSet(viewsets.ModelViewSet):
     serializer_class = ConversationListSerializer
     queryset = Conversation.objects.all()
-    permission_classes = permissions.IsAuthenticated
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
@@ -22,13 +22,13 @@ class ConversationViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action in ["destroy", "update", "partial_update"]:
-            self.permission_classes = IsOwner
+            self.permission_classes = [IsOwner]
         elif self.action == "retrieve":
-            self.permission_classes = IsParticipant
+            self.permission_classes = [IsParticipant]
         elif self.action == "participants":
-            self.permission_classes = IsOwner
+            self.permission_classes = [IsOwner]
         elif self.action == "messages":
-            self.permission_classes = IsParticipant
+            self.permission_classes = [IsParticipant]
 
         return super().get_permissions()
 
