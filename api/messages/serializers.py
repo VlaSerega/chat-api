@@ -28,6 +28,8 @@ class MessageCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = ('id', 'text', 'owner', 'date', 'conversation')
+        extra_kwargs = {'text': {'required': True}}
+
 
     def create(self, validated_data):
         user = self.context['user']

@@ -23,6 +23,7 @@ class ConversationCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Conversation
         fields = ('id', 'title', 'conversation_type', 'participant_id')
+        extra_kwargs = {'title': {'required': True}, 'conversation_type': {'required': True}}
 
     def create(self, validated_data):
         with transaction.atomic():
