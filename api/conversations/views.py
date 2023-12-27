@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import permissions, viewsets, status
 from rest_framework.decorators import action
 
-from api.messages.serializers import MessageSerializer
+from api.messages.serializers import MessageForConversationSerializer
 from api.permissions import IsOwner, IsParticipant
 from api.conversations.serializers import *
 from api.models import Conversation
@@ -44,7 +44,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
         elif self.action == "retrieve":
             return ConversationSerializer
         elif self.action == "messages":
-            return MessageSerializer
+            return MessageForConversationSerializer
 
         return self.serializer_class
 
@@ -52,6 +52,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         serializer = self.get_serializer(instance.participants)
         print(instance.participants)
+        print(instance)
         return Response(serializer.data)
 
     def participants_create(self, request, *args, **kwargs):

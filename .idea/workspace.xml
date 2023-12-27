@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f5c4d59-cb59-4039-9fff-8914f06718ad" name="Changes" comment="" />
+    <list default="true" id="4f5c4d59-cb59-4039-9fff-8914f06718ad" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/api/conversations/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/conversations/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/messages/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/messages/serializers.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

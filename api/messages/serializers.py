@@ -1,12 +1,20 @@
 from rest_framework import serializers
 
 from api.models import Message, ConversationParticipants
+from api.users.serializers import UserSmallSerializer
 
 
 class MessageUpdateSerializer(serializers.ModelSerializer):
     owner = serializers.IntegerField(read_only=True)
     date = serializers.DateTimeField(read_only=True)
 
+    class Meta:
+        model = Message
+        fields = ('id', 'text', 'owner', 'date')
+
+
+class MessageForConversationSerializer(serializers.ModelSerializer):
+    owner = UserSmallSerializer()
     class Meta:
         model = Message
         fields = ('id', 'text', 'owner', 'date')
