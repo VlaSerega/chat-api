@@ -51,6 +51,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
     def participants_retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance.participants)
+        print(instance.participants)
         return Response(serializer.data)
 
     def participants_create(self, request, *args, **kwargs):
