@@ -4,7 +4,7 @@ from api.models import User
 
 
 class UserFilter(filters.FilterSet):
-    email = filters.RangeFilter(lookup_expr='icontains', required=True)
+    email = filters.CharFilter(lookup_expr='icontains', required=True)
 
     class Meta:
         model = User
