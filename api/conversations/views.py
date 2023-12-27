@@ -33,6 +33,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
         return super().get_permissions()
 
     def get_serializer_class(self):
+        print(self.action)
         if self.action == "create":
             return ConversationCreateSerializer
         elif self.action == 'update' or self.action == 'partial_update':
@@ -43,8 +44,6 @@ class ConversationViewSet(viewsets.ModelViewSet):
             return ConversationParticipantsSerializer
         elif self.action == "retrieve":
             self.permission_classes = ConversationSerializer
-        elif self.action == "messages":
-            self.permission_classes = MessageSerializer
 
         return self.serializer_class
 
