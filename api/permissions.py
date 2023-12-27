@@ -4,12 +4,7 @@ from rest_framework import permissions
 
 class IsOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
-        return obj.onwer == request.user
-
-
-class IsMessageOwner(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        return obj.onwer == request.user
+        return obj.owner == request.user
 
 
 class IsParticipant(BasePermission):
