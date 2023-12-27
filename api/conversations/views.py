@@ -45,7 +45,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
             self.permission_classes = ConversationSerializer
         elif self.action == "messages":
             self.permission_classes = MessageSerializer
-
+        print(self.action, type(self.action), self.action == "messages")
         return self.serializer_class
 
     def participants_retrieve(self, request, *args, **kwargs):
