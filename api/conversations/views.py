@@ -42,10 +42,10 @@ class ConversationViewSet(viewsets.ModelViewSet):
         elif self.action == 'participants':
             return ConversationParticipantsSerializer
         elif self.action == "retrieve":
-            self.permission_classes = ConversationSerializer
+            return ConversationSerializer
         elif self.action == "messages":
-            self.permission_classes = MessageSerializer
-        print(self.action, type(self.action), self.action == "messages")
+            return MessageSerializer
+
         return self.serializer_class
 
     def participants_retrieve(self, request, *args, **kwargs):
@@ -82,5 +82,5 @@ class ConversationViewSet(viewsets.ModelViewSet):
     def messages(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance.messages, many=True)
-        print(serializer)
+
         return Response(serializer.data)
